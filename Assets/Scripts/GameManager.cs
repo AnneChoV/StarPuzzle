@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour {
 
             return false;
         }
-        else if ()
+        else if (FirstStar == null)
         {
 
             LinkingStar = StarToLink;
