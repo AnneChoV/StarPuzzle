@@ -59,8 +59,10 @@ public class GameManager : MonoBehaviour {
     public bool SetLinkingStar(StarBehaviour StarToLink)
     {
 
+
         if (StarToLink == FirstStar)
         {
+
             LinkingStar.SetLineTarget(StarToLink.GetComponent<Transform>());
             LinkingStar = null;
             FirstStar.GetComponentInChildren<SpriteRenderer>().sprite = StarBase;
@@ -71,12 +73,10 @@ public class GameManager : MonoBehaviour {
         else if (LinkingStar != null && StarToLink != LinkingStar)
         {
 
-            RaycastHit2D Hit = Physics2D.Raycast(LinkingStar.transform.position, StarToLink.transform.position);
+            RaycastHit2D Hit = Physics2D.Raycast(LinkingStar.transform.position, StarToLink.transform.position - LinkingStar.transform.position);
 
             if (Hit)
             {
-                Debug.Log(Hit.transform.name);
-                Debug.Log(StarToLink.transform.name);
 
                 if (Hit.transform.name == StarToLink.transform.name)
                 {
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour {
 
             return false;
         }
-        else
+        else if ()
         {
 
             LinkingStar = StarToLink;
@@ -97,5 +97,6 @@ public class GameManager : MonoBehaviour {
             return false;
         }
 
+        return false;
     }
 }
