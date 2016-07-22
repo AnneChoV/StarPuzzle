@@ -1,23 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//Player enum
+public enum Player
+{
+    Player1,
+    Player2
+};
+
 public class GameManager : MonoBehaviour {
 
+    //The StarPrefab
     public GameObject Star;
+    //Empty Gameobject to keep all of the stars in
     public GameObject StarParent;
 
+    //The star that was last clicked
     StarBehaviour LinkingStar;
+    //The first star in the sequence
     StarBehaviour FirstStar;
 
+    //Sprites for each star
     public Sprite StarBase;
     public Sprite StarFirst;
 
-    public LayerMask Default;
-    public LayerMask Ignore;
-    public LayerMask RayMask;
+    public Player Turn; // Tracks whose turn it is
 
 	// Use this for initialization
 	void Start () {
+
+        Turn = Player.Player1;
 
         LinkingStar = null;
 
@@ -27,16 +39,10 @@ public class GameManager : MonoBehaviour {
             float XCoord = Random.Range(-6.0f, 6.0f);
             float YCoord = Random.Range(-4.0f, 4.0f);
 
-            Vector3 Pos;
-            Pos.x = XCoord;
-            Pos.y = YCoord;
-            Pos.z = 0;
+            Vector3 Pos = new Vector3(XCoord, YCoord, 0); 
 
-            Quaternion Zero;
-            Zero.x = 0;
-            Zero.y = 0;
-            Zero.z = 0;
-            Zero.w = 0;
+            Quaternion Zero = new Quaternion(0,0,0,0);
+
 
             GameObject StarClone = (GameObject) Instantiate(Star, Pos, Zero);
             StarClone.transform.parent = StarParent.transform;
@@ -59,14 +65,24 @@ public class GameManager : MonoBehaviour {
     public bool SetLinkingStar(StarBehaviour StarToLink)
     {
 
-
         if (StarToLink == FirstStar)
         {
 
-            LinkingStar.SetLineTarget(StarToLink.GetComponent<Transform>());
+            LinkingStar.SetLineTarget(StarToLink.GetComponent<Transform>(), Turn);
             LinkingStar = null;
             FirstStar.GetComponentInChildren<SpriteRenderer>().sprite = StarBase;
             FirstStar = null;
+
+            Debug.Log(Turn);
+            
+            if (Turn == Player.Player2)
+            {
+                Turn = Player.Player1;
+            }
+            else
+            {
+                Turn = Player.Player2;
+            }
 
             return true;
         }
@@ -80,7 +96,8 @@ public class GameManager : MonoBehaviour {
 
                 if (Hit.transform.name == StarToLink.transform.name)
                 {
-                    LinkingStar.SetLineTarget(StarToLink.GetComponent<Transform>());
+
+                    LinkingStar.SetLineTarget(StarToLink.GetComponent<Transform>(), Turn);
                     LinkingStar = StarToLink;
                     return true;
                 }

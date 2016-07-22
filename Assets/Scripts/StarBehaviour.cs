@@ -3,6 +3,9 @@ using System.Collections;
 
 public class StarBehaviour : MonoBehaviour {
 
+    public Material PlayerOneMat;
+    public Material PlayerTwoMat;
+
     GameManager Manager;
     LineRenderer LinkRenderer;
 
@@ -25,9 +28,16 @@ public class StarBehaviour : MonoBehaviour {
         Manager.SetLinkingStar(this);
     }
 
-    public void SetLineTarget(Transform Target)
+    public void SetLineTarget(Transform Target, Player CurrentPlayer)
     {
-        
+        if (CurrentPlayer == Player.Player1)
+        {
+            LinkRenderer.material = PlayerOneMat;
+        }
+        else
+        {
+            LinkRenderer.material = PlayerTwoMat;
+        }
 
         LinkRenderer.SetPosition(0, GetComponent<Transform>().position);
         LinkRenderer.SetPosition(1, Target.position);
