@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour {
                     LinkingStar = StarToLink;
                     return true;
                 }
-          //  }
+            }
 
             return false;
         }
