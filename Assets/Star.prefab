@@ -86,6 +86,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d265dba615ab9c244a783bde0ac7f296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerOneMat: {fileID: 2100000, guid: 6fc59bfce1d38e447993b3d2571711b6, type: 2}
+  PlayerTwoMat: {fileID: 2100000, guid: 6fcbace885f0bbf4d88caab41f97d140, type: 2}
 --- !u!120 &12046378
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -99,7 +101,7 @@ LineRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 6fc59bfce1d38e447993b3d2571711b6, type: 2}
+  - {fileID: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
