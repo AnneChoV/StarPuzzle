@@ -6,11 +6,16 @@ public class GameManager : MonoBehaviour {
     public GameObject Star;
     public GameObject StarParent;
 
+    public GameObject CardPrefab;
+    public GameObject CardParent;
+
     StarBehaviour LinkingStar;
     StarBehaviour FirstStar;
 
     public Sprite StarBase;
     public Sprite StarFirst;
+
+    public GameObject[] Cards;
 
     public LayerMask Default;
     public LayerMask Ignore;
@@ -20,9 +25,12 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 
         LinkingStar = null;
+        int StarNumber = 40;    //Number of stars
+        int CardNumber = 7;     //Number of cards
+        Vector3 CurrentCardPos = new Vector3(-5, 0, 0); //The starting position of cards
 
-        //Spawning
-        for (int i = 0; i < 40; i++) {
+        //Spawning stars
+        for (int i = 0; i < StarNumber; i++) {
 
             float XCoord = Random.Range(-6.0f, 6.0f);
             float YCoord = Random.Range(-4.0f, 4.0f);
@@ -42,8 +50,25 @@ public class GameManager : MonoBehaviour {
             StarClone.transform.parent = StarParent.transform;
             StarClone.name = "Star " + i;
         }
+
+
+        //Spawning cards
+
+
+        for (int i = 0; i < CardNumber; i++)
+        {
+            int randCardNumber = Random.Range(3, 10);
+
+            GameObject CardClone = (GameObject)Instantiate(CardPrefab, CurrentCardPos, transform.rotation);
+            CardClone.transform.parent = CardParent.transform;
+            CardClone.name = "Card " + i;
+
+            CardClone.GetComponent<CardBehaviour>().initialize(randCardNumber);
+
+            CurrentCardPos.x += 2;
+        }
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -84,7 +109,7 @@ public class GameManager : MonoBehaviour {
                     LinkingStar = StarToLink;
                     return true;
                 }
-            }
+          //  }
 
             return false;
         }
@@ -93,7 +118,7 @@ public class GameManager : MonoBehaviour {
 
             LinkingStar = StarToLink;
             FirstStar = StarToLink;
-            FirstStar.GetComponentInChildren<SpriteRenderer>().sprite = StarFirst; 
+            FirstStar.GetComponentInChildren<SpriteRenderer>().sprite = StarFirst;
             return false;
         }
 

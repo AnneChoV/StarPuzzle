@@ -27,8 +27,6 @@ public class StarBehaviour : MonoBehaviour {
 
     public void SetLineTarget(Transform Target)
     {
-        
-
         LinkRenderer.SetPosition(0, GetComponent<Transform>().position);
         LinkRenderer.SetPosition(1, Target.position);
     }
